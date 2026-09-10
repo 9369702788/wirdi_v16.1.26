@@ -62,8 +62,8 @@ class _MoonScreenState extends State<MoonScreen> {
                     const SizedBox(height: 10),
                     if (sighting != null)
                       SizedBox(
-                        width: 96,
-                        height: 96,
+                        width: 190,
+                        height: 190,
                         child: MoonPhaseIcon(ageDays: sighting.ageDays, illumination: sighting.illumination, isWaxing: sighting.isWaxing),
                       ),
                     const SizedBox(height: 10),
@@ -207,7 +207,7 @@ class _MosaicBgState extends State<_MosaicBg> {
     if (_cachedImage != null) {
       _image = _cachedImage;
     } else {
-      final stream = const AssetImage('assets/images/generated/mosque_sunrise.png')
+      final stream = const AssetImage('assets/images/wirdi_mosaic.png')
           .resolve(const ImageConfiguration());
       _listener = ImageStreamListener((info, _) {
         _cachedImage = info.image;
@@ -239,8 +239,8 @@ class _MosaicCellPainter extends CustomPainter {
   final ui.Image image;
   final int col;
   final int row;
-  static const int cols = 1;
-  static const int rows = 1;
+  static const int cols = 5;
+  static const int rows = 2;
   _MosaicCellPainter({required this.image, required this.col, required this.row});
 
   @override
