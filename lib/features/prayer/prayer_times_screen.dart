@@ -508,7 +508,7 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
                         width: 46,
                         height: 46,
                         fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => const Icon(Icons.circle, size: 26, color: Colors.white54),
+                        errorBuilder: (context, error, stackTrace) => const Icon(Icons.circle, size: 46, color: Colors.white54),
                       ),
                     ),
                     const SizedBox(width: 8),

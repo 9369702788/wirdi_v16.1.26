@@ -81,7 +81,7 @@ class _RadioScreenState extends State<RadioScreen>
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.white,
-        flexibleSpace: _MosaicBg(col: 0, row: 1, opacity: 0.45),
+        flexibleSpace: _MosaicBg(col: 3, row: 1, opacity: 0.45),
         title: _searching
             ? TextField(
                 controller: _searchController,
@@ -421,7 +421,7 @@ class _MosaicBgState extends State<_MosaicBg> {
     if (_cachedImage != null) {
       _image = _cachedImage;
     } else {
-      final stream = const AssetImage('assets/images/generated/mosque_sunrise.png')
+      final stream = const AssetImage('assets/images/wirdi_mosaic.png')
           .resolve(const ImageConfiguration());
       _listener = ImageStreamListener((info, _) {
         _cachedImage = info.image;
@@ -453,8 +453,8 @@ class _MosaicCellPainter extends CustomPainter {
   final ui.Image image;
   final int col;
   final int row;
-  static const int cols = 1;
-  static const int rows = 1;
+  static const int cols = 5;
+  static const int rows = 2;
   _MosaicCellPainter({required this.image, required this.col, required this.row});
 
   @override

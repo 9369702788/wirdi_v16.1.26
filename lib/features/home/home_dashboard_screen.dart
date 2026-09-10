@@ -471,7 +471,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                               width: 40,
                               height: 40,
                               fit: BoxFit.cover,
-                              errorBuilder: (context, error, stackTrace) => const Icon(Icons.circle, size: 22, color: Colors.white54),
+                              errorBuilder: (context, error, stackTrace) => const Icon(Icons.circle, size: 40, color: Colors.white54),
                             ),
                           ),
                           const SizedBox(width: 8),

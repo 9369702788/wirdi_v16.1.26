@@ -148,13 +148,13 @@ class _RootShellState extends State<RootShell> with WidgetsBindingObserver {
             label: l10n.navQuran,
           ),
           BottomNavigationBarItem(                          // 2
-            icon: const Icon(Icons.favorite_outline),
-            activeIcon: const Icon(Icons.favorite),
+            icon: const Icon(Icons.volunteer_activism_outlined),
+            activeIcon: const Icon(Icons.volunteer_activism),
             label: l10n.navAzkar,
           ),
           BottomNavigationBarItem(                          // 3
-            icon: const Icon(Icons.access_time),
-            activeIcon: const Icon(Icons.access_time_filled),
+            icon: const Icon(Icons.mosque_outlined),
+            activeIcon: const Icon(Icons.mosque),
             label: l10n.navPrayer,
           ),
           BottomNavigationBarItem(                          // 4
@@ -163,8 +163,8 @@ class _RootShellState extends State<RootShell> with WidgetsBindingObserver {
             label: l10n.navTasbeeh,
           ),
           BottomNavigationBarItem(                          // 5  ← Radio
-            icon: const Icon(Icons.radio_outlined),
-            activeIcon: const Icon(Icons.radio),
+            icon: const Icon(Icons.podcasts_outlined),
+            activeIcon: const Icon(Icons.podcasts),
             label: l10n.radioTitle,
           ),
           BottomNavigationBarItem(                          // 6  ← Settings/More
