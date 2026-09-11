@@ -9,6 +9,7 @@ import '../../core/theme/app_theme.dart';
 import '../../l10n/generated/app_localizations.dart';
 import 'widgets/radio_station_tile.dart';
 import 'widgets/sleep_timer_sheet.dart';
+import 'radio_now_playing_screen.dart';
 
 class RadioScreen extends StatefulWidget {
   const RadioScreen({super.key});
@@ -468,6 +469,20 @@ class _MosaicCellPainter extends CustomPainter {
       final visW = cellH * dstAspect;
       final dx = (cellW - visW) / 2;
       src = Rect.fromLTWH(col * cellW + dx, row * cellH, visW, cellH);
+    } else {
+      final visH = cellW / dstAspect;
+      final dy = (cellH - visH) / 2;
+      src = Rect.fromLTWH(col * cellW, row * cellH + dy, cellW, visH);
+    }
+    final dst = Rect.fromLTWH(0, 0, size.width, size.height);
+    canvas.drawImageRect(image, src, dst, Paint()..filterQuality = FilterQuality.medium);
+  }
+
+  @override
+  bool shouldRepaint(covariant _MosaicCellPainter oldDelegate) =>
+      oldDelegate.image != image || oldDelegate.col != col || oldDelegate.row != row;
+}
+l * cellW + dx, row * cellH, visW, cellH);
     } else {
       final visH = cellW / dstAspect;
       final dy = (cellH - visH) / 2;

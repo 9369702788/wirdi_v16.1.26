@@ -1003,6 +1003,46 @@ class _SurahReaderScreenState extends State<SurahReaderScreen> {
         title: Text(l10n.quranSurahAppBarTitle(surah.name)),
         centerTitle: true,
         actions: [
+          IconButton(
+            tooltip: languageCode == 'ar' ? 'السورة السابقة' : 'Previous surah',
+            onPressed: surah.number > 1
+                ? () {
+                    final prevSurah = widget.allSurahs.firstWhere(
+                      (s) => s.number == surah.number - 1,
+                      orElse: () => surah,
+                    );
+                    if (prevSurah.number != surah.number) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => SurahReaderScreen(surah: prevSurah, allSurahs: widget.allSurahs),
+                        ),
+                      );
+                    }
+                  }
+                : null,
+            icon: const Icon(Icons.skip_previous_rounded),
+          ),
+          IconButton(
+            tooltip: languageCode == 'ar' ? 'السورة التالية' : 'Next surah',
+            onPressed: surah.number < 114
+                ? () {
+                    final nextSurah = widget.allSurahs.firstWhere(
+                      (s) => s.number == surah.number + 1,
+                      orElse: () => surah,
+                    );
+                    if (nextSurah.number != surah.number) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => SurahReaderScreen(surah: nextSurah, allSurahs: widget.allSurahs),
+                        ),
+                      );
+                    }
+                  }
+                : null,
+            icon: const Icon(Icons.skip_next_rounded),
+          ),
           _DownloadButton(surah: surah, allSurahs: widget.allSurahs),
           IconButton(
             tooltip: l10n.quranViewAsMushafPageTooltip,
