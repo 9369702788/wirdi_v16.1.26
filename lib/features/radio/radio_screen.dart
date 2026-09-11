@@ -317,47 +317,61 @@ class _NowPlayingBanner extends StatelessWidget {
     final lang = appSettings.locale.languageCode;
     final name = lang == 'ar'
         ? svc.currentStation!.nameAr : svc.currentStation!.nameEn;
-    return Container(
-      color: AppColors.primaryEmerald.withValues(alpha: 0.08),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      child: Row(children: [
-        Icon(Icons.graphic_eq_rounded,
-            color: AppColors.primaryEmerald, size: svc.isPlaying ? 28 : 24),
-        const SizedBox(width: 12),
-        Expanded(child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(l.radioNowPlaying,
-                style: TextStyle(fontSize: 11,
-                    color: AppColors.primaryEmerald, fontWeight: FontWeight.w600)),
-            Text(name, style: const TextStyle(fontWeight: FontWeight.bold),
-                maxLines: 1, overflow: TextOverflow.ellipsis),
-          ],
-        )),
-        if (svc.hasSleepTimer && svc.sleepMinutesRemaining != null)
-          Padding(padding: const EdgeInsets.only(right: 8),
-            child: Row(mainAxisSize: MainAxisSize.min, children: [
-              Icon(Icons.bedtime, size: 14, color: AppColors.goldAccent),
-              const SizedBox(width: 2),
-              Text('${svc.sleepMinutesRemaining}m',
-                  style: TextStyle(fontSize: 12,
-                      color: AppColors.goldAccent, fontWeight: FontWeight.bold)),
-            ])),
-        svc.isLoading
-            ? const SizedBox(width: 32, height: 32,
-                child: CircularProgressIndicator(strokeWidth: 2))
-            : IconButton(
-                icon: Icon(svc.isPlaying
-                    ? Icons.stop_rounded : Icons.play_arrow_rounded,
-                    color: AppColors.primaryEmerald),
-                onPressed: () {
-                  if (svc.isPlaying) {
-                    svc.stop();
-                  } else if (svc.currentStation != null) {
-                    svc.play(svc.currentStation!);
-                  }
-                }),
-      ]),
+    return GestureDetector(
+      onTap: () => Navigator.push(context,
+          MaterialPageRoute(builder: (_) => const RadioNowPlayingScreen())),
+      child: Container(
+        color: AppColors.primaryEmerald.withValues(alpha: 0.08),
+        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+        child: Row(children: [
+          Icon(Icons.graphic_eq_rounded,
+              color: AppColors.primaryEmerald, size: svc.isPlaying ? 28 : 24),
+          const SizedBox(width: 10),
+          Expanded(child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(l.radioNowPlaying,
+                  style: TextStyle(fontSize: 11,
+                      color: AppColors.primaryEmerald, fontWeight: FontWeight.w600)),
+              Text(name, style: const TextStyle(fontWeight: FontWeight.bold),
+                  maxLines: 1, overflow: TextOverflow.ellipsis),
+            ],
+          )),
+          if (svc.hasSleepTimer && svc.sleepMinutesRemaining != null)
+            Padding(padding: const EdgeInsets.only(right: 4),
+              child: Row(mainAxisSize: MainAxisSize.min, children: [
+                Icon(Icons.bedtime, size: 14, color: AppColors.goldAccent),
+                const SizedBox(width: 2),
+                Text('${svc.sleepMinutesRemaining}m',
+                    style: TextStyle(fontSize: 12,
+                        color: AppColors.goldAccent, fontWeight: FontWeight.bold)),
+              ])),
+          if (svc.allStations.length > 1)
+            IconButton(
+              icon: Icon(Icons.skip_previous_rounded, color: AppColors.primaryEmerald),
+              onPressed: () => svc.playPrevious(),
+            ),
+          svc.isLoading
+              ? const SizedBox(width: 32, height: 32,
+                  child: CircularProgressIndicator(strokeWidth: 2))
+              : IconButton(
+                  icon: Icon(svc.isPlaying
+                      ? Icons.stop_rounded : Icons.play_arrow_rounded,
+                      color: AppColors.primaryEmerald),
+                  onPressed: () {
+                    if (svc.isPlaying) {
+                      svc.stop();
+                    } else if (svc.currentStation != null) {
+                      svc.play(svc.currentStation!);
+                    }
+                  }),
+          if (svc.allStations.length > 1)
+            IconButton(
+              icon: Icon(Icons.skip_next_rounded, color: AppColors.primaryEmerald),
+              onPressed: () => svc.playNext(),
+            ),
+        ]),
+      ),
     );
   }
 }
@@ -442,7 +456,7 @@ class _MosaicBgState extends State<_MosaicBg> {
           if (img != null)
             CustomPaint(painter: _MosaicCellPainter(image: img, col: widget.col, row: widget.row))
           else
-            Container(color: const Color(0xFF0F766E)),
+            Container(color: const Color(0xFF0F5132)),
           Container(color: Colors.black.withValues(alpha: widget.opacity)),
         ],
       ),
@@ -469,20 +483,6 @@ class _MosaicCellPainter extends CustomPainter {
       final visW = cellH * dstAspect;
       final dx = (cellW - visW) / 2;
       src = Rect.fromLTWH(col * cellW + dx, row * cellH, visW, cellH);
-    } else {
-      final visH = cellW / dstAspect;
-      final dy = (cellH - visH) / 2;
-      src = Rect.fromLTWH(col * cellW, row * cellH + dy, cellW, visH);
-    }
-    final dst = Rect.fromLTWH(0, 0, size.width, size.height);
-    canvas.drawImageRect(image, src, dst, Paint()..filterQuality = FilterQuality.medium);
-  }
-
-  @override
-  bool shouldRepaint(covariant _MosaicCellPainter oldDelegate) =>
-      oldDelegate.image != image || oldDelegate.col != col || oldDelegate.row != row;
-}
-l * cellW + dx, row * cellH, visW, cellH);
     } else {
       final visH = cellW / dstAspect;
       final dy = (cellH - visH) / 2;
