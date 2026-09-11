@@ -360,7 +360,7 @@ class _NowPlayingBanner extends StatelessWidget {
                       color: AppColors.primaryEmerald),
                   onPressed: () {
                     if (svc.isPlaying) {
-                      svc.stop();
+                      svc.pause();
                     } else if (svc.currentStation != null) {
                       svc.play(svc.currentStation!);
                     }

@@ -180,7 +180,7 @@ class _RadioNowPlayingScreenState extends State<RadioNowPlayingScreen>
                                   icon: Icon(svc.isPlaying ? Icons.pause_rounded : Icons.play_arrow_rounded, color: Colors.white),
                                   onPressed: () {
                                     if (svc.isPlaying) {
-                                      svc.stop();
+                                      svc.pause();
                                     } else if (station != null) {
                                       svc.play(station);
                                     }

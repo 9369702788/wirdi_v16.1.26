@@ -256,7 +256,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(def.cardRadius),
         ),
       ),
-      textTheme: base.textTheme.apply(
+      textTheme: GoogleFonts.tajawalTextTheme(base.textTheme).apply(
         bodyColor: const Color(0xFF102925),
         displayColor: const Color(0xFF102925),
       ),

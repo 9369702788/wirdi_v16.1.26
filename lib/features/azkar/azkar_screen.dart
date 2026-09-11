@@ -350,7 +350,7 @@ class _AzkarDetailsScreenState extends State<AzkarDetailsScreen> {
                     item.text,
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.right,
-                    style: const TextStyle(fontSize: 19, height: 1.9, fontWeight: FontWeight.w600),
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 19, height: 1.9, fontWeight: FontWeight.w600, color: Colors.white),
                   ),
                   const SizedBox(height: 12),
                   Row(
@@ -434,7 +434,7 @@ class _AzkarFavoritesScreen extends StatelessWidget {
                     item.text,
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.right,
-                    style: const TextStyle(fontSize: 17, height: 1.8),
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontSize: 17, height: 1.8, color: Colors.white),
                   ),
                 ),
               );
