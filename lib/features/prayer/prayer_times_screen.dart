@@ -155,6 +155,17 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
         ],
       ),
     );
+  }
+
+  String _getMoonPhaseText() {
+    final now = DateTime.now();
+    final phase = (now.day % 29.5).toInt();
+    if (phase < 2) return 'قمر جديد';
+    if (phase < 8) return 'هلال متزايد';
+    if (phase < 15) return 'بدر';
+    if (phase < 22) return 'هلال متناقص';
+    return 'قمر جديد';
+  }
 
     if (city == null || city.isEmpty) return;
     if (!mounted) return;
@@ -177,6 +188,17 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(AppLocalizations.of(context).prayerCityNotFound(city))),
         );
+  }
+
+  String _getMoonPhaseText() {
+    final now = DateTime.now();
+    final phase = (now.day % 29.5).toInt();
+    if (phase < 2) return 'قمر جديد';
+    if (phase < 8) return 'هلال متزايد';
+    if (phase < 15) return 'بدر';
+    if (phase < 22) return 'هلال متناقص';
+    return 'قمر جديد';
+  }
       }
     }
   }
@@ -215,6 +237,17 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
           cachedAt: result.cachedAt,
           locationLabel: result.locationLabel,
         );
+  }
+
+  String _getMoonPhaseText() {
+    final now = DateTime.now();
+    final phase = (now.day % 29.5).toInt();
+    if (phase < 2) return 'قمر جديد';
+    if (phase < 8) return 'هلال متزايد';
+    if (phase < 15) return 'بدر';
+    if (phase < 22) return 'هلال متناقص';
+    return 'قمر جديد';
+  }
         if (mounted) setState(() => _result = updated);
         return;
       }
@@ -266,6 +299,17 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
             backgroundColor: AppColors.primaryEmerald,
           ),
         );
+  }
+
+  String _getMoonPhaseText() {
+    final now = DateTime.now();
+    final phase = (now.day % 29.5).toInt();
+    if (phase < 2) return 'قمر جديد';
+    if (phase < 8) return 'هلال متزايد';
+    if (phase < 15) return 'بدر';
+    if (phase < 22) return 'هلال متناقص';
+    return 'قمر جديد';
+  }
       }
     }
   }
@@ -275,6 +319,17 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
       (a) => a.id == appSettings.adhanId,
       orElse: () => AppSources.adhanOptions.first,
     );
+  }
+
+  String _getMoonPhaseText() {
+    final now = DateTime.now();
+    final phase = (now.day % 29.5).toInt();
+    if (phase < 2) return 'قمر جديد';
+    if (phase < 8) return 'هلال متزايد';
+    if (phase < 15) return 'بدر';
+    if (phase < 22) return 'هلال متناقص';
+    return 'قمر جديد';
+  }
     try {
       try {
         await _adhanPlayer.stop();
@@ -338,6 +393,17 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
           ),
         ),
       );
+  }
+
+  String _getMoonPhaseText() {
+    final now = DateTime.now();
+    final phase = (now.day % 29.5).toInt();
+    if (phase < 2) return 'قمر جديد';
+    if (phase < 8) return 'هلال متزايد';
+    if (phase < 15) return 'بدر';
+    if (phase < 22) return 'هلال متناقص';
+    return 'قمر جديد';
+  }
     }
 
     final result = _result!;
@@ -384,11 +450,33 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
                         actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK'))],
                       ),
                     );
+  }
+
+  String _getMoonPhaseText() {
+    final now = DateTime.now();
+    final phase = (now.day % 29.5).toInt();
+    if (phase < 2) return 'قمر جديد';
+    if (phase < 8) return 'هلال متزايد';
+    if (phase < 15) return 'بدر';
+    if (phase < 22) return 'هلال متناقص';
+    return 'قمر جديد';
+  }
                   } catch (e) {
                     if (!context.mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Could not load weather right now')),
                     );
+  }
+
+  String _getMoonPhaseText() {
+    final now = DateTime.now();
+    final phase = (now.day % 29.5).toInt();
+    if (phase < 2) return 'قمر جديد';
+    if (phase < 8) return 'هلال متزايد';
+    if (phase < 15) return 'بدر';
+    if (phase < 22) return 'هلال متناقص';
+    return 'قمر جديد';
+  }
                   }
                 }();
               } else if (value == 'sun') {
@@ -408,11 +496,33 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
                         actions: [TextButton(onPressed: () => Navigator.pop(context), child: const Text('OK'))],
                       ),
                     );
+  }
+
+  String _getMoonPhaseText() {
+    final now = DateTime.now();
+    final phase = (now.day % 29.5).toInt();
+    if (phase < 2) return 'قمر جديد';
+    if (phase < 8) return 'هلال متزايد';
+    if (phase < 15) return 'بدر';
+    if (phase < 22) return 'هلال متناقص';
+    return 'قمر جديد';
+  }
                   } catch (e) {
                     if (!context.mounted) return;
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Could not calculate sunrise/sunset right now')),
                     );
+  }
+
+  String _getMoonPhaseText() {
+    final now = DateTime.now();
+    final phase = (now.day % 29.5).toInt();
+    if (phase < 2) return 'قمر جديد';
+    if (phase < 8) return 'هلال متزايد';
+    if (phase < 15) return 'بدر';
+    if (phase < 22) return 'هلال متناقص';
+    return 'قمر جديد';
+  }
                   }
                 }();
               }
@@ -505,10 +615,10 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
                     ClipOval(
                       child: Image.asset(
                         moonImageAsset,
-                        width: 150,
-                        height: 150,
+                        width: 46,
+                        height: 46,
                         fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => const Icon(Icons.circle, size: 150, color: Colors.white54),
+                        errorBuilder: (context, error, stackTrace) => const Icon(Icons.circle, size: 46, color: Colors.white54),
                       ),
                     ),
                     const SizedBox(width: 8),
@@ -574,6 +684,17 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
                 ),
               ),
             );
+  }
+
+  String _getMoonPhaseText() {
+    final now = DateTime.now();
+    final phase = (now.day % 29.5).toInt();
+    if (phase < 2) return 'قمر جديد';
+    if (phase < 8) return 'هلال متزايد';
+    if (phase < 15) return 'بدر';
+    if (phase < 22) return 'هلال متناقص';
+    return 'قمر جديد';
+  }
           }),
           const SizedBox(height: 12),
           Text(
@@ -584,6 +705,17 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
         ],
       ),
     );
+  }
+
+  String _getMoonPhaseText() {
+    final now = DateTime.now();
+    final phase = (now.day % 29.5).toInt();
+    if (phase < 2) return 'قمر جديد';
+    if (phase < 8) return 'هلال متزايد';
+    if (phase < 15) return 'بدر';
+    if (phase < 22) return 'هلال متناقص';
+    return 'قمر جديد';
+  }
   }
 }
 
@@ -633,6 +765,17 @@ class _MosaicBgState extends State<_MosaicBg> {
         ],
       ),
     );
+  }
+
+  String _getMoonPhaseText() {
+    final now = DateTime.now();
+    final phase = (now.day % 29.5).toInt();
+    if (phase < 2) return 'قمر جديد';
+    if (phase < 8) return 'هلال متزايد';
+    if (phase < 15) return 'بدر';
+    if (phase < 22) return 'هلال متناقص';
+    return 'قمر جديد';
+  }
   }
 }
 
