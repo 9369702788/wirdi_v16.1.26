@@ -327,7 +327,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                               onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const KhatmaTrackerScreen())),
                               child: Text(
                                 l10n.homeKhatmaProgress((_khatmaRatio * 100).round()),
-                                style: const TextStyle(
+                                style: TextStyle(
                                   color: AppColors.goldAccent,
                                   fontSize: 12,
                                   decoration: TextDecoration.underline,

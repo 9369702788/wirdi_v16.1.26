@@ -135,8 +135,6 @@ class WirdiAudioHandler extends BaseAudioHandler {
   Future<void> skipToNext() async {
     if (_radioActive) {
       await RadioService.instance.playNext();
-    } else if (_quranActive) {
-      await quranAudio.skipNextAyah();
     }
   }
 
@@ -144,8 +142,6 @@ class WirdiAudioHandler extends BaseAudioHandler {
   Future<void> skipToPrevious() async {
     if (_radioActive) {
       await RadioService.instance.playPrevious();
-    } else if (_quranActive) {
-      await quranAudio.skipPrevAyah();
     }
   }
 

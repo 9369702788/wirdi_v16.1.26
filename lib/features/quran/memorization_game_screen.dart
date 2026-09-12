@@ -153,7 +153,7 @@ class _MemorizationGameScreenState extends State<MemorizationGameScreen> {
                                       borderRadius: BorderRadius.circular(8),
                                       border: Border.all(color: AppColors.primaryEmerald, width: 1.5),
                                     ),
-                                    child: const Text(
+                                    child: Text(
                                       '.......',
                                       style: TextStyle(
                                         fontFamily: 'AmiriQuran',
