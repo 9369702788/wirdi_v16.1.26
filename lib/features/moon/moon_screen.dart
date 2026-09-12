@@ -54,7 +54,6 @@ class _MoonScreenState extends State<MoonScreen> {
               padding: const EdgeInsets.all(16),
               children: [
                 Container(
-                  constraints: const BoxConstraints(minHeight: 400),
                   width: double.infinity,
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(gradient: LinearGradient(colors: [AppColors.primaryEmerald, const Color(0xFF115E56)]), borderRadius: BorderRadius.circular(16)),
@@ -73,7 +72,6 @@ class _MoonScreenState extends State<MoonScreen> {
                 ),
                 const SizedBox(height: 12),
                 Container(
-                  constraints: const BoxConstraints(minHeight: 400),
                   padding: const EdgeInsets.all(14),
                   decoration: BoxDecoration(color: AppColors.goldAccent.withValues(alpha: 0.1), borderRadius: BorderRadius.circular(14)),
                   child: Text(
@@ -229,10 +227,8 @@ class _MosaicBgState extends State<_MosaicBg> {
           if (img != null)
             CustomPaint(painter: _MosaicCellPainter(image: img, col: widget.col, row: widget.row))
           else
-            Container(
-                  constraints: const BoxConstraints(minHeight: 400),color: const Color(0xFF0F766E)),
-          Container(
-                  constraints: const BoxConstraints(minHeight: 400),color: Colors.black.withValues(alpha: widget.opacity)),
+            Container(color: const Color(0xFF0F766E)),
+          Container(color: Colors.black.withValues(alpha: widget.opacity)),
         ],
       ),
     );

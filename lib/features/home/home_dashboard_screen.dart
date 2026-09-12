@@ -892,7 +892,7 @@ class _MosaicBg extends StatefulWidget {
   final int col; // 0-indexed, 0..4
   final int row; // 0-indexed, 0..1
   final double opacity;
-  const _MosaicBg({required this.col, required this.row, this.opacity = 0.4, this.heightFactor = 0.5});
+  const _MosaicBg({required this.col, required this.row, this.opacity = 0.4});
 
   @override
   State<_MosaicBg> createState() => _MosaicBgState();

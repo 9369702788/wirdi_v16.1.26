@@ -105,7 +105,6 @@ class _OtherCityPrayerTimesScreenState extends State<OtherCityPrayerTimesScreen>
   String _getMoonPhaseText() {
     final now = DateTime.now();
     final phase = (now.day % 29.5).toInt();
-    
     if (phase < 2) return 'قمر جديد';
     if (phase < 8) return 'هلال متزايد';
     if (phase < 15) return 'بدر';
