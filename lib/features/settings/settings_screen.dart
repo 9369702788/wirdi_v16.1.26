@@ -294,10 +294,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                         Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ExpansionTile(
-                         title: Text(l10n.settingsMode, style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 14)),
-                         initiallyExpanded: true,
-                         children: [
+                      Text(l10n.settingsMode, style: const TextStyle(fontWeight: FontWeight.w700)),
                       const SizedBox(height: 10),
                       SizedBox(
                         width: double.infinity,
