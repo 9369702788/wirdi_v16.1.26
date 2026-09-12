@@ -505,10 +505,10 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
                     ClipOval(
                       child: Image.asset(
                         moonImageAsset,
-                        width: 46,
-                        height: 46,
+                        width: 150,
+                        height: 150,
                         fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => const Icon(Icons.circle, size: 46, color: Colors.white54),
+                        errorBuilder: (context, error, stackTrace) => const Icon(Icons.circle, size: 150, color: Colors.white54),
                       ),
                     ),
                     const SizedBox(width: 8),

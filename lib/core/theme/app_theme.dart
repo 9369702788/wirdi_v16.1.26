@@ -239,7 +239,7 @@ class AppTheme {
         surface: Colors.white,
       ),
       scaffoldBackgroundColor: def.lightBackground,
-      fontFamily: def.fontFamily ?? GoogleFonts.tajawal().fontFamily,
+      fontFamily: def.fontFamily ?? GoogleFonts.cairo().fontFamily,
     );
 
     return base.copyWith(
@@ -256,7 +256,7 @@ class AppTheme {
           borderRadius: BorderRadius.circular(def.cardRadius),
         ),
       ),
-      textTheme: GoogleFonts.tajawalTextTheme(base.textTheme).apply(
+      textTheme: base.textTheme.apply(
         bodyColor: const Color(0xFF102925),
         displayColor: const Color(0xFF102925),
       ),
@@ -294,7 +294,7 @@ class AppTheme {
         surface: def.darkCard,
       ),
       scaffoldBackgroundColor: def.darkBackground,
-      fontFamily: def.fontFamily ?? GoogleFonts.tajawal().fontFamily,
+      fontFamily: def.fontFamily ?? GoogleFonts.cairo().fontFamily,
     );
 
     return base.copyWith(

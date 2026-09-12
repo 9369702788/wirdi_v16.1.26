@@ -267,7 +267,7 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
         title: Text(l10n.appTitle),
         centerTitle: true,
         foregroundColor: Colors.white,
-        flexibleSpace: _MosaicBg(col: 0, row: 0, opacity: 0.35),
+        flexibleSpace: _MosaicBg(col: 0, row: 0, opacity: 0.4),
         actions: [
           IconButton(
             tooltip: l10n.homeIslamicTools,

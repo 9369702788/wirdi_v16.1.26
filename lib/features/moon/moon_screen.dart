@@ -62,12 +62,12 @@ class _MoonScreenState extends State<MoonScreen> {
                     const SizedBox(height: 10),
                     if (sighting != null)
                       SizedBox(
-                        width: 190,
-                        height: 190,
+                        width: 280,
+                        height: 280,
                         child: MoonPhaseIcon(ageDays: sighting.ageDays, illumination: sighting.illumination, isWaxing: sighting.isWaxing),
                       ),
                     const SizedBox(height: 10),
-                    Text(sighting?.description ?? '', textAlign: TextAlign.center, softWrap: true, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.white, fontSize: 15, height: 1.5)),
+                    Text(sighting?.description ?? '', textAlign: TextAlign.center, style: const TextStyle(color: Colors.white, fontSize: 15)),
                   ]),
                 ),
                 const SizedBox(height: 12),

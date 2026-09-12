@@ -286,8 +286,8 @@ class _TasbeehScreenState extends State<TasbeehScreen> {
                 child: GestureDetector(
                 onTap: _increment,
                 child: Container(
-                  width: 230,
-                  height: 230,
+                  width: 280,
+                  height: 280,
                   alignment: Alignment.center,
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
@@ -304,8 +304,8 @@ class _TasbeehScreenState extends State<TasbeehScreen> {
                     alignment: Alignment.center,
                     children: [
                       SizedBox(
-                        width: 210,
-                        height: 210,
+                        width: 260,
+                        height: 260,
                         child: CircularProgressIndicator(
                           value: progress,
                           strokeWidth: 6,
@@ -316,7 +316,7 @@ class _TasbeehScreenState extends State<TasbeehScreen> {
                       Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
-                          Text('$_today', style: const TextStyle(color: Colors.white, fontSize: 52, fontWeight: FontWeight.w700)),
+                          Text('$_today', style: const TextStyle(color: Colors.white, fontSize: 64, fontWeight: FontWeight.w700)),
                           Text(_selected.text, style: const TextStyle(color: Colors.white70, fontSize: 14)),
                         ],
                       ),
