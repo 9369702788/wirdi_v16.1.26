@@ -225,8 +225,17 @@ class _TasbeehScreenState extends State<TasbeehScreen> {
           IconButton(onPressed: _reset, icon: const Icon(Icons.refresh), tooltip: l10n.tasbeehResetToday),
         ],
       ),
-      body: SafeArea(bottom: true, top: false, child: SingleChildScrollView(child: Column(
-        children: [
+      body: SafeArea(
+        bottom: true,
+        top: false,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return SingleChildScrollView(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(minHeight: constraints.maxHeight),
+                child: IntrinsicHeight(
+                  child: Column(
+                    children: [
           SizedBox(
             height: 56,
             child: ListView.separated(
@@ -337,7 +346,13 @@ class _TasbeehScreenState extends State<TasbeehScreen> {
             child: Text(l10n.tasbeehTapHint, style: const TextStyle(color: AppColors.mutedText, fontSize: 12)),
           ),
         ],
-      )),
+                  ),
+                ),
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 }
