@@ -102,7 +102,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           TextButton(onPressed: () => Navigator.pop(context, true), child: Text(l10n.commonDelete, style: const TextStyle(color: Colors.red))),
         ],
       ),
-    );
+                  ],
+                ),
+              ],
+            );
     if (confirmed == true) {
       await AudioDownloadService.deleteAllDownloads();
       _loadDownloadedAudioSize();
@@ -200,7 +203,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ],
       ),
-    );
+                  ],
+                ),
+              ],
+            );
 
     if (confirmed == true) {
       await UserProgressService.clearAllLocalData();
@@ -222,7 +228,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
       body: ListenableBuilder(
         listenable: appSettings,
         builder: (context, _) {
-          return ListView(padding: EdgeInsets.fromLTRB(16, 16, 16, 16 + MediaQuery.of(context).padding.bottom),
+          return ListView(
+              children: [
+                ExpansionTile(
+                  title: const Text('التنبيهات'),
+                  initiallyExpanded: false,
+                  children: [padding: EdgeInsets.fromLTRB(16, 16, 16, 16 + MediaQuery.of(context).padding.bottom),
             children: [
               Container(
                 width: double.infinity,
@@ -361,6 +372,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       SizedBox(
                         height: 76,
                         child: ListView(
+              children: [
+                ExpansionTile(
+                  title: const Text('التنبيهات'),
+                  initiallyExpanded: false,
+                  children: [
                           scrollDirection: Axis.horizontal,
                           children: AppColorTheme.values.map((t) {
                             final def = AppTheme.definitions[t]!;
@@ -1098,7 +1114,10 @@ class _SettingsScreenState extends State<SettingsScreen> {
           );
         },
       ),
-    );
+                  ],
+                ),
+              ],
+            );
   }
 
   /// Shows the language picker sheet and applies the choice. Uses a
@@ -1187,7 +1206,10 @@ class _SectionLabel extends StatelessWidget {
         text,
         style: const TextStyle(fontWeight: FontWeight.w700, color: AppColors.mutedText, fontSize: 13),
       ),
-    );
+                  ],
+                ),
+              ],
+            );
   }
 }
 

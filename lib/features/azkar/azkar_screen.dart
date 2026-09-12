@@ -434,7 +434,7 @@ class _AzkarFavoritesScreen extends StatelessWidget {
                     item.text,
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.right,
-                    style: const TextStyle(fontSize: 17, height: 1.9, fontWeight: FontWeight.w500),
+                    style: const TextStyle(fontSize: 17, height: 1.8),
                   ),
                 ),
               );
