@@ -317,9 +317,21 @@ class _TasbeehScreenState extends State<TasbeehScreen> {
                         height: 210,
                         child: CircularProgressIndicator(
                           value: progress,
-                          strokeWidth: 6,
-                          backgroundColor: Colors.white.withValues(alpha: 0.15),
+                          strokeWidth: 4,
+                          backgroundColor: Colors.white.withValues(alpha: 0.12),
                           valueColor: AlwaysStoppedAnimation(AppColors.goldAccent),
+                        ),
+                      ),
+                      SizedBox(
+                        width: 214,
+                        height: 214,
+                        child: CustomPaint(
+                          painter: _TasbeehBeadsPainter(
+                            target: _selected.target,
+                            count: _today,
+                            activeColor: AppColors.goldAccent,
+                            inactiveColor: Colors.white.withValues(alpha: 0.22),
+                          ),
                         ),
                       ),
                       Column(
@@ -378,4 +390,58 @@ class _StatChip extends StatelessWidget {
       ),
     );
   }
+}
+
+
+class _TasbeehBeadsPainter extends CustomPainter {
+  final int target;
+  final int count;
+  final Color activeColor;
+  final Color inactiveColor;
+
+  _TasbeehBeadsPainter({
+    required this.target,
+    required this.count,
+    required this.activeColor,
+    required this.inactiveColor,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    if (target <= 0) return;
+    final center = Offset(size.width / 2, size.height / 2);
+    final radius = size.width / 2;
+    final totalBeads = (target == 100 || target == 33) ? target : (target <= 100 ? target : 33);
+    final currentCount = count % (target > 0 ? target : 1);
+    final activeBeads = (count > 0 && currentCount == 0) ? totalBeads : currentCount;
+
+    final beadRadius = totalBeads > 50 ? 2.5 : 4.0;
+    final activePaint = Paint()
+      ..color = activeColor
+      ..style = PaintingStyle.fill;
+    final inactivePaint = Paint()
+      ..color = inactiveColor
+      ..style = PaintingStyle.fill;
+    final glowPaint = Paint()
+      ..color = activeColor.withValues(alpha: 0.55)
+      ..maskFilter = const MaskFilter.blur(BlurStyle.normal, 3);
+
+    for (int i = 0; i < totalBeads; i++) {
+      final angle = -math.pi / 2 + (i * 2 * math.pi / totalBeads);
+      final x = center.dx + radius * math.cos(angle);
+      final y = center.dy + radius * math.sin(angle);
+      final isLit = i < activeBeads;
+
+      if (isLit) {
+        canvas.drawCircle(Offset(x, y), beadRadius + 1.5, glowPaint);
+        canvas.drawCircle(Offset(x, y), beadRadius, activePaint);
+      } else {
+        canvas.drawCircle(Offset(x, y), beadRadius, inactivePaint);
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant _TasbeehBeadsPainter oldDelegate) =>
+      oldDelegate.count != count || oldDelegate.target != target;
 }
