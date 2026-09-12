@@ -120,7 +120,7 @@ class NearbyPlacesService {
           return places;
         }
       } catch (e) {
-        AppLogger.w('Overpass endpoint $endpoint failed: $e');
+        AppLogger.info('Overpass endpoint $endpoint failed: $e');
       }
     }
     return [];
@@ -163,8 +163,9 @@ class NearbyPlacesService {
         if (placeLat == null || placeLon == null) continue;
 
         final displayName = map['display_name']?.toString() ?? fallbackName;
-        final name = (map['name']?.toString()?.isNotEmpty ?? false)
-            ? map['name'].toString()
+        final rawName = map['name']?.toString();
+        final name = (rawName != null && rawName.isNotEmpty)
+            ? rawName
             : displayName.split(',').first;
 
         places.add(NearbyPlace(
@@ -179,7 +180,7 @@ class NearbyPlacesService {
       places.sort((a, b) => a.distanceMeters.compareTo(b.distanceMeters));
       return places;
     } catch (e) {
-      AppLogger.w('Nominatim fallback failed: $e');
+      AppLogger.info('Nominatim fallback failed: $e');
       return [];
     }
   }
