@@ -58,16 +58,16 @@ class _MoonScreenState extends State<MoonScreen> {
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(gradient: LinearGradient(colors: [AppColors.primaryEmerald, const Color(0xFF115E56)]), borderRadius: BorderRadius.circular(16)),
                   child: Column(children: [
-                    Text(isAr ? 'طور القمر اليوم' : "Today's Moon Phase", style: const TextStyle(color: Colors.white70, fontSize: 12)),
-                    const SizedBox(height: 10),
+                    Text(isAr ? 'طور القمر اليوم' : "Today's Moon Phase", style: const TextStyle(color: Colors.white70, fontSize: 13)),
+                    const SizedBox(height: 12),
                     if (sighting != null)
                       SizedBox(
-                        width: 380,
-                        height: 380,
+                        width: 220,
+                        height: 220,
                         child: MoonPhaseIcon(ageDays: sighting.ageDays, illumination: sighting.illumination, isWaxing: sighting.isWaxing),
                       ),
-                    const SizedBox(height: 10),
-                    Text(sighting?.description ?? '', textAlign: TextAlign.center, style: const TextStyle(color: Colors.white, fontSize: 15)),
+                    const SizedBox(height: 12),
+                    Text(sighting?.description ?? '', textAlign: TextAlign.center, style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.w600)),
                   ]),
                 ),
                 const SizedBox(height: 12),

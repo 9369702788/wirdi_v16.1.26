@@ -285,50 +285,73 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
         onRefresh: _loadAll,
         child: ListView(padding: EdgeInsets.fromLTRB(20, 20, 20, 20 + MediaQuery.of(context).padding.bottom),
           children: [
-            Text(_greeting(l10n), style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
-            const SizedBox(height: 4),
-            Text(
-              _streak > 0 ? l10n.homeStreakDays(_streak) : l10n.homeContinueToday,
-              style: const TextStyle(color: AppColors.mutedText),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              l10n.homePrayersToday(_prayedCount, 5),
-              style: const TextStyle(color: AppColors.mutedText, fontSize: 12),
-            ),
-            if (_khatmaRatio > 0) ...[
-              const SizedBox(height: 2),
-              Semantics(
-                button: true,
-                label: l10n.homeKhatmaProgress((_khatmaRatio * 100).round()),
-                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const KhatmaTrackerScreen())),
-                child: GestureDetector(
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (_) => const KhatmaTrackerScreen()),
-                ),
-                child: Text(
-                  l10n.homeKhatmaProgress((_khatmaRatio * 100).round()),
-                  style: const TextStyle(
-                    color: AppColors.mutedText,
-                    fontSize: 12,
-                    decoration: TextDecoration.underline,
+            Container(
+              margin: const EdgeInsets.only(bottom: 16),
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withValues(alpha: 0.08),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
                   ),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                      child: _MosaicBg(col: 0, row: 0, opacity: 0.38),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(14),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(_greeting(l10n), style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700)),
+                          const SizedBox(height: 4),
+                          Text(
+                            _streak > 0 ? l10n.homeStreakDays(_streak) : l10n.homeContinueToday,
+                            style: const TextStyle(color: Colors.white70),
+                          ),
+                          const SizedBox(height: 2),
+                          Text(
+                            l10n.homePrayersToday(_prayedCount, 5),
+                            style: const TextStyle(color: Colors.white60, fontSize: 12),
+                          ),
+                          if (_khatmaRatio > 0) ...[
+                            const SizedBox(height: 4),
+                            GestureDetector(
+                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const KhatmaTrackerScreen())),
+                              child: Text(
+                                l10n.homeKhatmaProgress((_khatmaRatio * 100).round()),
+                                style: const TextStyle(
+                                  color: AppColors.goldAccent,
+                                  fontSize: 12,
+                                  decoration: TextDecoration.underline,
+                                ),
+                              ),
+                            ),
+                          ],
+                          const SizedBox(height: 6),
+                          Builder(builder: (context) {
+                            final now = DateTime.now();
+                            final hijri = HijriDate.fromGregorian(now);
+                            final gregorian = DateFormat('EEEE d MMMM y', languageCode).format(now);
+                            return Text(
+                              '$gregorian — ${hijri.toStringLocalized(languageCode)}',
+                              style: const TextStyle(color: Colors.white70, fontSize: 12),
+                            );
+                          }),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              ),
-            ],
-            const SizedBox(height: 6),
-            Builder(builder: (context) {
-              final now = DateTime.now();
-              final hijri = HijriDate.fromGregorian(now);
-              final gregorian = DateFormat('EEEE d MMMM y', languageCode).format(now);
-              return Text(
-                '$gregorian — ${hijri.toStringLocalized(languageCode)}',
-                style: const TextStyle(color: AppColors.mutedText, fontSize: 12),
-              );
-            }),
-            const SizedBox(height: 16),
+            ),
 
             Semantics(
               button: true,

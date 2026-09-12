@@ -508,23 +508,23 @@ class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
                         ClipOval(
                           child: Image.asset(
                             moonImageAsset,
-                            width: 138,
-                            height: 138,
+                            width: 130,
+                            height: 130,
                             fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) => const Icon(Icons.circle, size: 138, color: Colors.white54),
+                            errorBuilder: (context, error, stackTrace) => const Icon(Icons.circle, size: 130, color: Colors.white54),
                           ),
                         ),
-                        const SizedBox(height: 8),
+                        const SizedBox(height: 10),
                         Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 4),
+                          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
                           decoration: BoxDecoration(
-                            color: Colors.black.withValues(alpha: 0.35),
+                            color: Colors.black.withValues(alpha: 0.4),
                             borderRadius: BorderRadius.circular(16),
-                            border: Border.all(color: Colors.white24),
+                            border: Border.all(color: Colors.white30),
                           ),
                           child: Text(
                             moonPhaseName,
-                            style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w600),
+                            style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ),
                       ],
