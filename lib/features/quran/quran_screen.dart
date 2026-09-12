@@ -266,7 +266,7 @@ class _SurahListTabState extends State<_SurahListTab> {
                     backgroundColor: AppColors.primaryEmerald.withValues(alpha: 0.12),
                     child: Text('${surah.number}', style: const TextStyle(color: Color(0xFF0F766E), fontWeight: FontWeight.bold)),
                   ),
-                  title: Text(surah.name, textAlign: TextAlign.right, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700)),
+                  title: Text(surah.name, textAlign: TextAlign.right, style: const TextStyle(fontFamily: 'AmiriQuran', fontSize: 22, fontWeight: FontWeight.w700)),
                   subtitle: Text(l10n.quranSurahSubtitle(surah.englishName, surah.ayahs.length), textAlign: TextAlign.right),
                   trailing: const Icon(Icons.menu_book),
                   onTap: () => Navigator.push(

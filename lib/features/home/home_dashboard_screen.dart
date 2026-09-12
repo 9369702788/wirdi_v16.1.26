@@ -287,9 +287,8 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
           children: [
             Container(
               margin: const EdgeInsets.only(bottom: 16),
-              padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(22),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withValues(alpha: 0.08),
@@ -299,27 +298,36 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                 ],
               ),
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(22),
                 child: Stack(
                   children: [
                     Positioned.fill(
-                      child: _MosaicBg(col: 0, row: 0, opacity: 0.38),
+                      child: _MosaicBg(col: 0, row: 0, opacity: 0.45),
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(14),
+                      padding: const EdgeInsets.all(18),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(_greeting(l10n), style: const TextStyle(color: Colors.white, fontSize: 20, fontWeight: FontWeight.w700)),
+                          Text(
+                            _greeting(l10n),
+                            style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 6),
+                          Row(
+                            children: [
+                              const Icon(Icons.local_fire_department, color: Colors.amber, size: 18),
+                              const SizedBox(width: 4),
+                              Text(
+                                _streak > 0 ? l10n.homeStreakDays(_streak) : l10n.homeContinueToday,
+                                style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
+                              ),
+                            ],
+                          ),
                           const SizedBox(height: 4),
                           Text(
-                            _streak > 0 ? l10n.homeStreakDays(_streak) : l10n.homeContinueToday,
-                            style: const TextStyle(color: Colors.white70),
-                          ),
-                          const SizedBox(height: 2),
-                          Text(
                             l10n.homePrayersToday(_prayedCount, 5),
-                            style: const TextStyle(color: Colors.white60, fontSize: 12),
+                            style: const TextStyle(color: Colors.white70, fontSize: 13),
                           ),
                           if (_khatmaRatio > 0) ...[
                             const SizedBox(height: 4),
@@ -329,20 +337,21 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                                 l10n.homeKhatmaProgress((_khatmaRatio * 100).round()),
                                 style: TextStyle(
                                   color: AppColors.goldAccent,
-                                  fontSize: 12,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.w600,
                                   decoration: TextDecoration.underline,
                                 ),
                               ),
                             ),
                           ],
-                          const SizedBox(height: 6),
+                          const SizedBox(height: 8),
                           Builder(builder: (context) {
                             final now = DateTime.now();
                             final hijri = HijriDate.fromGregorian(now);
                             final gregorian = DateFormat('EEEE d MMMM y', languageCode).format(now);
                             return Text(
                               '$gregorian — ${hijri.toStringLocalized(languageCode)}',
-                              style: const TextStyle(color: Colors.white70, fontSize: 12),
+                              style: const TextStyle(color: Colors.white70, fontSize: 13),
                             );
                           }),
                         ],
@@ -711,10 +720,23 @@ class _DashboardCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
-      child: InkWell(
+    return Container(
+      margin: const EdgeInsets.only(bottom: 2),
+      decoration: BoxDecoration(
+        color: Theme.of(context).cardColor,
+        borderRadius: BorderRadius.circular(22),
+        border: Border.all(color: AppColors.primaryEmerald.withValues(alpha: 0.15)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 3),
+          ),
+        ],
+      ),
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
         borderRadius: BorderRadius.circular(22),
         onTap: onTap,
         child: Padding(
@@ -744,6 +766,7 @@ class _DashboardCard extends StatelessWidget {
               trailing,
             ],
           ),
+        ),
         ),
       ),
     );
