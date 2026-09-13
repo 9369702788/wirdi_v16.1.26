@@ -263,104 +263,101 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
     final moonImageAsset = MoonCalculator.phaseImageAsset(moonAge);
 
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(220),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            bottomLeft: Radius.circular(28),
-            bottomRight: Radius.circular(28),
+      appBar: AppBar(
+        title: Text(l10n.appTitle),
+        centerTitle: true,
+        foregroundColor: Colors.white,
+        flexibleSpace: _MosaicBg(col: 0, row: 0, opacity: 0.4),
+        actions: [
+          IconButton(
+            tooltip: l10n.homeIslamicTools,
+            icon: const Icon(Icons.apps_outlined),
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const IslamicToolsScreen())),
           ),
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              const _MosaicBg(col: 0, row: 0, opacity: 0.5),
-              SafeArea(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          IconButton(
-                            tooltip: l10n.commonSettingsTooltip,
-                            icon: const Icon(Icons.settings_outlined, color: Colors.white),
-                            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen())),
-                          ),
-                          Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                tooltip: l10n.homeIslamicTools,
-                                icon: const Icon(Icons.apps_outlined, color: Colors.white),
-                                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const IslamicToolsScreen())),
-                              ),
-                              Text(l10n.appTitle, style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                      Text(
-                        _greeting(l10n),
-                        style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 4),
-                      Row(
-                        children: [
-                          const Icon(Icons.local_fire_department, color: Colors.amber, size: 16),
-                          const SizedBox(width: 4),
-                          Text(
-                            _streak > 0 ? l10n.homeStreakDays(_streak) : l10n.homeContinueToday,
-                            style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600),
-                          ),
-                          const SizedBox(width: 12),
-                          Text(
-                            l10n.homePrayersToday(_prayedCount, 5),
-                            style: const TextStyle(color: Colors.white70, fontSize: 12),
-                          ),
-                        ],
-                      ),
-                      if (_khatmaRatio > 0) ...[
-                        const SizedBox(height: 4),
-                        GestureDetector(
-                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const KhatmaTrackerScreen())),
-                          child: Text(
-                            l10n.homeKhatmaProgress((_khatmaRatio * 100).round()),
-                            style: TextStyle(
-                              color: AppColors.goldAccent,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              decoration: TextDecoration.underline,
-                            ),
-                          ),
-                        ),
-                      ],
-                      const SizedBox(height: 4),
-                      Builder(builder: (context) {
-                        final now = DateTime.now();
-                        final hijri = HijriDate.fromGregorian(now);
-                        final gregorian = DateFormat('EEEE d MMMM y', languageCode).format(now);
-                        return Text(
-                          '$gregorian — ${hijri.toStringLocalized(languageCode)}',
-                          style: const TextStyle(color: Colors.white70, fontSize: 11),
-                        );
-                      }),
-                      const SizedBox(height: 14),
+          IconButton(
+            tooltip: l10n.commonSettingsTooltip,
+            icon: const Icon(Icons.settings_outlined),
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen())),
+          ),
+        ],
+      ),
+      body: Stack(
+        children: [
+          Positioned(
+            top: 0,
+            left: 0,
+            right: 0,
+            height: 540,
+            child: IgnorePointer(
+              child: DecoratedBox(
+                decoration: BoxDecoration(
+                  image: const DecorationImage(
+                    image: AssetImage('assets/images/generated/mosque_sunrise.png'),
+                    fit: BoxFit.cover,
+                    alignment: Alignment.topCenter,
+                  ),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.black.withValues(alpha: 0.18),
+                      Colors.black.withValues(alpha: 0.52),
+                      Colors.transparent,
                     ],
+                    stops: [0.0, 0.48, 1.0],
                   ),
                 ),
               ),
-            ],
+            ),
           ),
-        ),
-      ),
-      body: RefreshIndicator(
-        onRefresh: _loadAll,
-        child: ListView(padding: EdgeInsets.fromLTRB(20, 20, 20, 20 + MediaQuery.of(context).padding.bottom),
-          children: [
-            const SizedBox(height: 8),
+          RefreshIndicator(
+            onRefresh: _loadAll,
+            child: ListView(padding: EdgeInsets.fromLTRB(20, 20, 20, 20 + MediaQuery.of(context).padding.bottom),
+              children: [
+            Text(_greeting(l10n), style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w700)),
+            const SizedBox(height: 4),
+            Text(
+              _streak > 0 ? l10n.homeStreakDays(_streak) : l10n.homeContinueToday,
+              style: const TextStyle(color: AppColors.mutedText),
+            ),
+            const SizedBox(height: 2),
+            Text(
+              l10n.homePrayersToday(_prayedCount, 5),
+              style: const TextStyle(color: AppColors.mutedText, fontSize: 12),
+            ),
+            if (_khatmaRatio > 0) ...[
+              const SizedBox(height: 2),
+              Semantics(
+                button: true,
+                label: l10n.homeKhatmaProgress((_khatmaRatio * 100).round()),
+                onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const KhatmaTrackerScreen())),
+                child: GestureDetector(
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (_) => const KhatmaTrackerScreen()),
+                ),
+                child: Text(
+                  l10n.homeKhatmaProgress((_khatmaRatio * 100).round()),
+                  style: const TextStyle(
+                    color: AppColors.mutedText,
+                    fontSize: 12,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
+              ),
+            ],
+            const SizedBox(height: 6),
+            Builder(builder: (context) {
+              final now = DateTime.now();
+              final hijri = HijriDate.fromGregorian(now);
+              final gregorian = DateFormat('EEEE d MMMM y', languageCode).format(now);
+              return Text(
+                '$gregorian — ${hijri.toStringLocalized(languageCode)}',
+                style: const TextStyle(color: AppColors.mutedText, fontSize: 12),
+              );
+            }),
+            const SizedBox(height: 16),
 
             Semantics(
               button: true,
@@ -695,12 +692,13 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
               ],
             ),
           ],
-        ),
+            ),
+          ),
+        ],
       ),
     );
   }
 }
-
 class _DashboardCard extends StatelessWidget {
   final IconData icon;
   final String title;
@@ -720,23 +718,12 @@ class _DashboardCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 2),
-      decoration: BoxDecoration(
-        color: Theme.of(context).cardColor,
-        borderRadius: BorderRadius.circular(22),
-        border: Border.all(color: AppColors.primaryEmerald.withValues(alpha: 0.15)),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
-            blurRadius: 10,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
+    return Card(
+      elevation: 0,
+      color: Theme.of(context).colorScheme.surface.withValues(alpha: 0.86),
+      surfaceTintColor: Colors.transparent,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+      child: InkWell(
         borderRadius: BorderRadius.circular(22),
         onTap: onTap,
         child: Padding(
@@ -766,7 +753,6 @@ class _DashboardCard extends StatelessWidget {
               trailing,
             ],
           ),
-        ),
         ),
       ),
     );

@@ -348,15 +348,15 @@ class _NowPlayingBanner extends StatelessWidget {
               ])),
           if (svc.allStations.length > 1)
             IconButton(
-              icon: Icon(Icons.skip_next_rounded, color: AppColors.primaryEmerald),
-              onPressed: () => svc.playNext(),
+              icon: Icon(Icons.skip_previous_rounded, color: AppColors.primaryEmerald),
+              onPressed: () => svc.playPrevious(),
             ),
           svc.isLoading
               ? const SizedBox(width: 32, height: 32,
                   child: CircularProgressIndicator(strokeWidth: 2))
               : IconButton(
                   icon: Icon(svc.isPlaying
-                      ? Icons.pause_rounded : Icons.play_arrow_rounded,
+                      ? Icons.stop_rounded : Icons.play_arrow_rounded,
                       color: AppColors.primaryEmerald),
                   onPressed: () {
                     if (svc.isPlaying) {
@@ -367,8 +367,8 @@ class _NowPlayingBanner extends StatelessWidget {
                   }),
           if (svc.allStations.length > 1)
             IconButton(
-              icon: Icon(Icons.skip_previous_rounded, color: AppColors.primaryEmerald),
-              onPressed: () => svc.playPrevious(),
+              icon: Icon(Icons.skip_next_rounded, color: AppColors.primaryEmerald),
+              onPressed: () => svc.playNext(),
             ),
         ]),
       ),

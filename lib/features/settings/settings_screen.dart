@@ -243,8 +243,12 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       )
                     : const SizedBox.shrink(),
               ),
-                        _SectionLabel(l10n.settingsAppearance),
-              Card(
+                        ExpansionTile(
+                title: Text(l10n.settingsAppearance, style: const TextStyle(fontWeight: FontWeight.w700)),
+                initiallyExpanded: true,
+                tilePadding: const EdgeInsets.symmetric(horizontal: 8),
+                children: [
+                  Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(children: [
@@ -469,9 +473,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ],
                 ),
             ]))),
+                  ],
+                ),
               const SizedBox(height: 20),
-              _SectionLabel(l10n.settingsPrayerReminder),
-              Card(
+              ExpansionTile(
+                title: Text(l10n.settingsPrayerReminder, style: const TextStyle(fontWeight: FontWeight.w700)),
+                initiallyExpanded: false,
+                tilePadding: const EdgeInsets.symmetric(horizontal: 8),
+                children: [
+                  Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -825,9 +835,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   },
                 ),
               ),
+                  ],
+                ),
               const SizedBox(height: 12),
-              _SectionLabel(l10n.settingsMoreReminders),
-              Card(
+              ExpansionTile(
+                title: Text(l10n.settingsMoreReminders, style: const TextStyle(fontWeight: FontWeight.w700)),
+                initiallyExpanded: false,
+                tilePadding: const EdgeInsets.symmetric(horizontal: 8),
+                children: [
+                  Card(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(children: [
@@ -904,6 +920,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ]),
                 ),
               ),
+                  ],
+                ),
               const SizedBox(height: 20),
               _SectionLabel(l10n.settingsDataManagement),
               Card(
