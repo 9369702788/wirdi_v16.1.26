@@ -36,6 +36,7 @@ import '../../core/data/app_sources.dart';
 import '../../core/services/user_progress_service.dart';
 import '../../core/theme/app_theme.dart';
 import '../../l10n/generated/app_localizations.dart';
+import '../prayer/widgets/prayer_notification_selector.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -243,12 +244,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       )
                     : const SizedBox.shrink(),
               ),
-                        ExpansionTile(
-                title: Text(l10n.settingsAppearance, style: const TextStyle(fontWeight: FontWeight.w700)),
-                initiallyExpanded: true,
-                tilePadding: const EdgeInsets.symmetric(horizontal: 8),
-                children: [
-                  Card(
+                        _SectionLabel(l10n.settingsAppearance),
+              Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(children: [
@@ -473,15 +470,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ],
                 ),
             ]))),
-                  ],
-                ),
               const SizedBox(height: 20),
-              ExpansionTile(
-                title: Text(l10n.settingsPrayerReminder, style: const TextStyle(fontWeight: FontWeight.w700)),
-                initiallyExpanded: false,
-                tilePadding: const EdgeInsets.symmetric(horizontal: 8),
-                children: [
-                  Card(
+              _SectionLabel(l10n.settingsPrayerReminder),
+              Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -835,15 +826,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   },
                 ),
               ),
-                  ],
-                ),
               const SizedBox(height: 12),
-              ExpansionTile(
-                title: Text(l10n.settingsMoreReminders, style: const TextStyle(fontWeight: FontWeight.w700)),
-                initiallyExpanded: false,
-                tilePadding: const EdgeInsets.symmetric(horizontal: 8),
-                children: [
-                  Card(
+              _SectionLabel(l10n.settingsMoreReminders),
+              Card(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(children: [
@@ -920,8 +905,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ]),
                 ),
               ),
-                  ],
-                ),
               const SizedBox(height: 20),
               _SectionLabel(l10n.settingsDataManagement),
               Card(
