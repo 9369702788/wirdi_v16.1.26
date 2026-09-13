@@ -104,4 +104,28 @@ class PrayerNotificationScheduler {
       await NotificationService.cancelOngoingNextPrayer();
     }
   }
+
+
+  /// Get notification type for a specific prayer and trigger appropriate handler
+  /// TODO: Uncomment this method and use it in your prayer time trigger logic
+  /*
+  Future<void> _triggerPrayerNotification(String prayerName) async {
+    final notificationType = AppSettings.instance.getPrayerNotificationType(prayerName);
+    
+    switch (notificationType) {
+      case 'adhan':
+        await _playAdhan(prayerName);
+        break;
+      case 'alarm':
+        await _playAlarm(prayerName);
+        break;
+      case 'notification':
+        await _showNotification(prayerName);
+        break;
+      default:
+        await _playAdhan(prayerName);
+    }
+  }
+  */
+
 }

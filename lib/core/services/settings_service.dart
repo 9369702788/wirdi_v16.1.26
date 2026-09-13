@@ -92,6 +92,16 @@ class AppSettings extends ChangeNotifier {
   String _adhanId = 'a9';
 
   Map<String, String> _prayerSoundOverride = {};
+  
+  // Prayer notification type per prayer (adhan, alarm, notification)
+  Map<String, String> _prayerNotificationTypes = {
+    'Fajr': 'adhan',
+    'Dhuhr': 'adhan',
+    'Asr': 'adhan',
+    'Maghrib': 'adhan',
+    'Isha': 'adhan',
+  };
+  
   bool _showTransliteration = false;
   bool _showTajweedColoring = true;
   String _quranFontFamily = 'default';
@@ -141,6 +151,13 @@ class AppSettings extends ChangeNotifier {
     if (override == null || override == 'default') return _prayerReminderMode;
     return override;
   }
+  
+  // Prayer notification type getter
+  Map<String, String> get prayerNotificationTypes => _prayerNotificationTypes;
+  
+  String getPrayerNotificationType(String prayerName) => 
+    _prayerNotificationTypes[prayerName] ?? 'adhan';
+  
   String get adhanId => _adhanId;
   bool get showTransliteration => _showTransliteration;
   bool get showTajweedColoring => _showTajweedColoring;
@@ -295,6 +312,24 @@ class AppSettings extends ChangeNotifier {
         _prayerSoundOverride = {};
       }
     }
+
+    // Load prayer notification types
+    final storedNotificationTypes = prefs.getString('settings_prayer_notification_types');
+    if (storedNotificationTypes != null) {
+      try {
+        final decoded = jsonDecode(storedNotificationTypes) as Map<String, dynamic>;
+        _prayerNotificationTypes = decoded.map((k, v) => MapEntry(k, v as String));
+      } catch (_) {
+        _prayerNotificationTypes = {
+          'Fajr': 'adhan',
+          'Dhuhr': 'adhan',
+          'Asr': 'adhan',
+          'Maghrib': 'adhan',
+          'Isha': 'adhan',
+        };
+      }
+    }
+    
     _notifyAtPrayerTime = prefs.getBool('settings_notify_at_prayer_time') ?? true;
     _postPrayerReminderEnabled = prefs.getBool('settings_post_prayer_reminder_enabled') ?? false;
     _postPrayerReminderMinutesAfter = prefs.getInt('settings_post_prayer_reminder_minutes') ?? 30;
@@ -416,6 +451,13 @@ class AppSettings extends ChangeNotifier {
     notifyListeners();
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('settings_prayer_sound_override', jsonEncode(_prayerSoundOverride));
+  }
+
+  Future<void> setPrayerNotificationType(String prayerName, String type) async {
+    _prayerNotificationTypes[prayerName] = type;
+    notifyListeners();
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('settings_prayer_notification_types', jsonEncode(_prayerNotificationTypes));
   }
 
   Future<void> toggleFavoriteReciter(String id) async {
