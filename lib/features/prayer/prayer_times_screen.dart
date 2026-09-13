@@ -20,7 +20,6 @@ import '../../core/services/weather_service.dart';
 import '../../core/services/sunrise_sunset_calculator.dart';
 import 'package:geolocator/geolocator.dart';
 import 'prayer_chart_screen.dart';
-import 'widgets/prayer_notification_selector.dart';
 
 class PrayerTimesScreen extends StatefulWidget {
   const PrayerTimesScreen({super.key});
@@ -28,13 +27,6 @@ class PrayerTimesScreen extends StatefulWidget {
   @override
   State<PrayerTimesScreen> createState() => _PrayerTimesScreenState();
 }
-
-// TODO: Add PrayerNotificationTypeSelector widget next to each prayer time
-// Example: PrayerNotificationTypeSelector(
-//   prayerName: prayer.name,
-//   prayerDisplayName: prayerDisplayName(prayer.name, l10n),
-//   compact: true,
-// )
 
 class _PrayerTimesScreenState extends State<PrayerTimesScreen> {
   bool _loading = true;

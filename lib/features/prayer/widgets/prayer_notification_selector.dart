@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../core/services/settings_service.dart';
+import '../../../core/services/settings_service.dart';
 
 /// Reusable widget for selecting prayer notification type
 /// Shows different UI based on [compact] parameter
@@ -10,12 +10,12 @@ class PrayerNotificationTypeSelector extends StatefulWidget {
   final VoidCallback? onChanged;
 
   const PrayerNotificationTypeSelector({
-    Key? key,
+    super.key,
     required this.prayerName,
     required this.prayerDisplayName,
     this.compact = false,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   @override
   State<PrayerNotificationTypeSelector> createState() => _PrayerNotificationTypeSelectorState();
