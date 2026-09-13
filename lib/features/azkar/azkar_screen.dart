@@ -53,7 +53,7 @@ class _AzkarScreenState extends State<AzkarScreen> with SingleTickerProviderStat
     return Scaffold(
       appBar: AppBar(
         foregroundColor: Colors.white,
-        flexibleSpace: _MosaicBg(col: 2, row: 1, opacity: 0.18),
+        flexibleSpace: _MosaicBg(col: 2, row: 1, opacity: 0.4),
         title: Text(l10n.azkarDuasTitle),
         centerTitle: true,
         bottom: TabBar(
@@ -80,33 +80,9 @@ class _AzkarScreenState extends State<AzkarScreen> with SingleTickerProviderStat
           ),
         ],
       ),
-      body: Stack(
-        children: [
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            height: 260,
-            child: IgnorePointer(
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                  image: const DecorationImage(
-                    image: AssetImage('assets/images/generated/mosque_sunrise.png'),
-                    fit: BoxFit.cover,
-                    alignment: Alignment.topCenter,
-                  ),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.black.withValues(alpha: 0.10), Colors.transparent],
-                  ),
-                ),
-              ),
-            ),
-          ),
-          SafeArea(bottom: true, top: false, child: FutureBuilder<List<AzkarCategoryModel>>(
-            future: _future,
-            builder: (context, snapshot) {
+      body: SafeArea(bottom: true, top: false, child: FutureBuilder<List<AzkarCategoryModel>>(
+        future: _future,
+        builder: (context, snapshot) {
           if (snapshot.connectionState != ConnectionState.done) {
             return const Center(child: CircularProgressIndicator());
           }
@@ -123,17 +99,15 @@ class _AzkarScreenState extends State<AzkarScreen> with SingleTickerProviderStat
           final azkarCategories = allCategories.where((c) => !_isDuaCategory(c)).toList();
           final duaCategories = allCategories.where(_isDuaCategory).toList();
 
-              return TabBarView(
-                controller: _tabController,
-                children: [
-                  _buildCategoryList(azkarCategories, l10n),
-                  _buildCategoryList(duaCategories, l10n),
-                ],
-              );
-            },
-          )),
-        ],
-      ),
+          return TabBarView(
+            controller: _tabController,
+            children: [
+              _buildCategoryList(azkarCategories, l10n),
+              _buildCategoryList(duaCategories, l10n),
+            ],
+          );
+        },
+      )),
     );
   }
 
@@ -460,7 +434,7 @@ class _AzkarFavoritesScreen extends StatelessWidget {
                     item.text,
                     textDirection: TextDirection.rtl,
                     textAlign: TextAlign.right,
-                    style: const TextStyle(fontSize: 17, height: 1.9, fontWeight: FontWeight.w500),
+                    style: const TextStyle(fontSize: 17, height: 1.8),
                   ),
                 ),
               );
