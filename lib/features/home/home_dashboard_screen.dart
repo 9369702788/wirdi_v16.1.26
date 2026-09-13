@@ -322,6 +322,21 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
                           ),
                         ],
                       ),
+                      if (_khatmaRatio > 0) ...[
+                        const SizedBox(height: 4),
+                        GestureDetector(
+                          onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const KhatmaTrackerScreen())),
+                          child: Text(
+                            l10n.homeKhatmaProgress((_khatmaRatio * 100).round()),
+                            style: TextStyle(
+                              color: AppColors.goldAccent,
+                              fontSize: 12,
+                              fontWeight: FontWeight.w600,
+                              decoration: TextDecoration.underline,
+                            ),
+                          ),
+                        ),
+                      ],
                       const SizedBox(height: 4),
                       Builder(builder: (context) {
                         final now = DateTime.now();
