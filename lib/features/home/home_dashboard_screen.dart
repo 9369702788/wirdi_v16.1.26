@@ -263,104 +263,89 @@ class _HomeDashboardScreenState extends State<HomeDashboardScreen> {
     final moonImageAsset = MoonCalculator.phaseImageAsset(moonAge);
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(l10n.appTitle),
-        centerTitle: true,
-        foregroundColor: Colors.white,
-        flexibleSpace: _MosaicBg(col: 0, row: 0, opacity: 0.35),
-        actions: [
-          IconButton(
-            tooltip: l10n.homeIslamicTools,
-            icon: const Icon(Icons.apps_outlined),
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const IslamicToolsScreen())),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(220),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            bottomLeft: Radius.circular(28),
+            bottomRight: Radius.circular(28),
           ),
-          IconButton(
-            tooltip: l10n.commonSettingsTooltip,
-            icon: const Icon(Icons.settings_outlined),
-            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen())),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              const _MosaicBg(col: 0, row: 0, opacity: 0.5),
+              SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                            tooltip: l10n.commonSettingsTooltip,
+                            icon: const Icon(Icons.settings_outlined, color: Colors.white),
+                            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const SettingsScreen())),
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                tooltip: l10n.homeIslamicTools,
+                                icon: const Icon(Icons.apps_outlined, color: Colors.white),
+                                onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const IslamicToolsScreen())),
+                              ),
+                              Text(l10n.appTitle, style: const TextStyle(color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold)),
+                            ],
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      Text(
+                        _greeting(l10n),
+                        style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
+                      ),
+                      const SizedBox(height: 4),
+                      Row(
+                        children: [
+                          const Icon(Icons.local_fire_department, color: Colors.amber, size: 16),
+                          const SizedBox(width: 4),
+                          Text(
+                            _streak > 0 ? l10n.homeStreakDays(_streak) : l10n.homeContinueToday,
+                            style: const TextStyle(color: Colors.white, fontSize: 13, fontWeight: FontWeight.w600),
+                          ),
+                          const SizedBox(width: 12),
+                          Text(
+                            l10n.homePrayersToday(_prayedCount, 5),
+                            style: const TextStyle(color: Colors.white70, fontSize: 12),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      Builder(builder: (context) {
+                        final now = DateTime.now();
+                        final hijri = HijriDate.fromGregorian(now);
+                        final gregorian = DateFormat('EEEE d MMMM y', languageCode).format(now);
+                        return Text(
+                          '$gregorian — ${hijri.toStringLocalized(languageCode)}',
+                          style: const TextStyle(color: Colors.white70, fontSize: 11),
+                        );
+                      }),
+                      const SizedBox(height: 14),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
       body: RefreshIndicator(
         onRefresh: _loadAll,
         child: ListView(padding: EdgeInsets.fromLTRB(20, 20, 20, 20 + MediaQuery.of(context).padding.bottom),
           children: [
-            Container(
-              margin: const EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(22),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withValues(alpha: 0.08),
-                    blurRadius: 12,
-                    offset: const Offset(0, 4),
-                  ),
-                ],
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(22),
-                child: Stack(
-                  children: [
-                    Positioned.fill(
-                      child: _MosaicBg(col: 0, row: 0, opacity: 0.45),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(18),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            _greeting(l10n),
-                            style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 6),
-                          Row(
-                            children: [
-                              const Icon(Icons.local_fire_department, color: Colors.amber, size: 18),
-                              const SizedBox(width: 4),
-                              Text(
-                                _streak > 0 ? l10n.homeStreakDays(_streak) : l10n.homeContinueToday,
-                                style: const TextStyle(color: Colors.white, fontSize: 14, fontWeight: FontWeight.w600),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 4),
-                          Text(
-                            l10n.homePrayersToday(_prayedCount, 5),
-                            style: const TextStyle(color: Colors.white70, fontSize: 13),
-                          ),
-                          if (_khatmaRatio > 0) ...[
-                            const SizedBox(height: 4),
-                            GestureDetector(
-                              onTap: () => Navigator.push(context, MaterialPageRoute(builder: (_) => const KhatmaTrackerScreen())),
-                              child: Text(
-                                l10n.homeKhatmaProgress((_khatmaRatio * 100).round()),
-                                style: TextStyle(
-                                  color: AppColors.goldAccent,
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w600,
-                                  decoration: TextDecoration.underline,
-                                ),
-                              ),
-                            ),
-                          ],
-                          const SizedBox(height: 8),
-                          Builder(builder: (context) {
-                            final now = DateTime.now();
-                            final hijri = HijriDate.fromGregorian(now);
-                            final gregorian = DateFormat('EEEE d MMMM y', languageCode).format(now);
-                            return Text(
-                              '$gregorian — ${hijri.toStringLocalized(languageCode)}',
-                              style: const TextStyle(color: Colors.white70, fontSize: 13),
-                            );
-                          }),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            const SizedBox(height: 8),
 
             Semantics(
               button: true,
