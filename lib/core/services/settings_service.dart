@@ -54,17 +54,18 @@ class AppSettings extends ChangeNotifier {
       'Maghrib': 'adhan',
       'Isha': 'adhan',
     };
-    
+
     /// Get notification type for a specific prayer
     String getPrayerNotificationType(String prayerName) {
       return _prayerNotificationTypes[prayerName] ?? 'adhan';
     }
-    
+
     /// Set notification type for a specific prayer
     Future<void> setPrayerNotificationType(String prayerName, String type) async {
       _prayerNotificationTypes[prayerName] = type;
       notifyListeners();
-      await _prefs?.setString('prayer_notification_type_$prayerName', type);
+      final prefs = await SharedPreferences.getInstance();
+      await prefs.setString('prayer_notification_type_$prayerName', type);
     }
 
   ThemeMode _themeMode = ThemeMode.system;
@@ -261,6 +262,14 @@ class AppSettings extends ChangeNotifier {
   }
 
   Future<void> load() async {
+    // Load prayer notification types
+    for (final prayer in ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha']) {
+      final saved = prefs.getString('prayer_notification_type_$prayer');
+      if (saved != null) {
+        _prayerNotificationTypes[prayer] = saved;
+      }
+    }
+
     final prefs = await SharedPreferences.getInstance();
 
     final storedTheme = prefs.getString('settings_theme_mode');
