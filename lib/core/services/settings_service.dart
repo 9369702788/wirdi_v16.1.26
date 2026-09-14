@@ -145,19 +145,14 @@ class AppSettings extends ChangeNotifier {
   String get prayerReminderMode => _prayerReminderMode;
 
   String prayerSoundOverrideFor(String prayerId) => _prayerSoundOverride[prayerId] ?? 'default';
+  
+  String getPrayerNotificationType(String prayerName) => _prayerNotificationTypes[prayerName] ?? 'adhan';
 
   String effectiveModeFor(String prayerId) {
     final override = _prayerSoundOverride[prayerId];
     if (override == null || override == 'default') return _prayerReminderMode;
     return override;
   }
-  
-  // Prayer notification type getter
-  Map<String, String> get prayerNotificationTypes => _prayerNotificationTypes;
-  
-  String getPrayerNotificationType(String prayerName) => 
-    _prayerNotificationTypes[prayerName] ?? 'adhan';
-  
   String get adhanId => _adhanId;
   bool get showTransliteration => _showTransliteration;
   bool get showTajweedColoring => _showTajweedColoring;
@@ -312,22 +307,14 @@ class AppSettings extends ChangeNotifier {
         _prayerSoundOverride = {};
       }
     }
-
+    
     // Load prayer notification types
     final storedNotificationTypes = prefs.getString('settings_prayer_notification_types');
     if (storedNotificationTypes != null) {
       try {
         final decoded = jsonDecode(storedNotificationTypes) as Map<String, dynamic>;
         _prayerNotificationTypes = decoded.map((k, v) => MapEntry(k, v as String));
-      } catch (_) {
-        _prayerNotificationTypes = {
-          'Fajr': 'adhan',
-          'Dhuhr': 'adhan',
-          'Asr': 'adhan',
-          'Maghrib': 'adhan',
-          'Isha': 'adhan',
-        };
-      }
+      } catch (_) {}
     }
     
     _notifyAtPrayerTime = prefs.getBool('settings_notify_at_prayer_time') ?? true;
