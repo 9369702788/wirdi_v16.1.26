@@ -6,6 +6,7 @@ class PrayerNotificationTypeSelector extends StatefulWidget {
   final String prayerDisplayName;
   final AppSettings appSettings;
   final bool compact;
+  final VoidCallback? onChanged;
 
   const PrayerNotificationTypeSelector({
     super.key,
@@ -13,13 +14,16 @@ class PrayerNotificationTypeSelector extends StatefulWidget {
     required this.prayerDisplayName,
     required this.appSettings,
     this.compact = false,
+    this.onChanged,
   });
 
   @override
-  State<PrayerNotificationTypeSelector> createState() => _PrayerNotificationTypeSelectorState();
+  State<PrayerNotificationTypeSelector> createState() =>
+      _PrayerNotificationTypeSelectorState();
 }
 
-class _PrayerNotificationTypeSelectorState extends State<PrayerNotificationTypeSelector> {
+class _PrayerNotificationTypeSelectorState
+    extends State<PrayerNotificationTypeSelector> {
   late String _selectedType;
 
   @override
@@ -28,59 +32,59 @@ class _PrayerNotificationTypeSelectorState extends State<PrayerNotificationTypeS
     _selectedType = widget.appSettings.getPrayerNotificationType(widget.prayerName);
   }
 
-  void _updateNotificationType(String type) async {
-    setState(() => _selectedType = type);
-    await widget.appSettings.setPrayerNotificationType(widget.prayerName, type);
+  Future<void> _updateNotificationType(String newType) async {
+    setState(() {
+      _selectedType = newType;
+    });
+    await widget.appSettings.setPrayerNotificationType(widget.prayerName, newType);
+    widget.onChanged?.call();
   }
 
   @override
   Widget build(BuildContext context) {
     if (widget.compact) {
-      return SegmentedButton<String>(
-        segments: const [
-          ButtonSegment(value: 'adhan', label: Icon(Icons.music_note, size: 18)),
-          ButtonSegment(value: 'alarm', label: Icon(Icons.alarm, size: 18)),
-          ButtonSegment(value: 'notification', label: Icon(Icons.notifications, size: 18)),
-        ],
-        selected: {_selectedType},
-        onSelectionChanged: (selected) => _updateNotificationType(selected.first),
-      );
-    } else {
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(widget.prayerDisplayName, style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14)),
-          Padding(
-            padding: const EdgeInsets.only(left: 16.0),
-            child: Column(
-              children: [
-                RadioListTile<String>(
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('🔔 Adhan'),
+      // Compact mode for Prayer Times screen
+      return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: Text(
+                '${widget.prayerDisplayName} Notification:',
+                style: const TextStyle(fontSize: 12),
+              ),
+            ),
+            SegmentedButton<String>(
+              segments: const <ButtonSegment<String>>[
+                ButtonSegment<String>(
                   value: 'adhan',
-                  groupValue: _selectedType,
-                  onChanged: (value) => value != null ? _updateNotificationType(value) : null,
+                  label: Text('🔔'),
                 ),
-                RadioListTile<String>(
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('⏰ Alarm'),
+                ButtonSegment<String>(
                   value: 'alarm',
-                  groupValue: _selectedType,
-                  onChanged: (value) => value != null ? _updateNotificationType(value) : null,
+                  label: Text('⏰'),
                 ),
-                RadioListTile<String>(
-                  contentPadding: EdgeInsets.zero,
-                  title: const Text('📢 Notification'),
+                ButtonSegment<String>(
                   value: 'notification',
-                  groupValue: _selectedType,
-                  onChanged: (value) => value != null ? _updateNotificationType(value) : null,
+                  label: Text('📢'),
                 ),
               ],
+              selected: <String>{_selectedType},
+              onSelectionChanged: (Set<String> newSelection) {
+                _updateNotificationType(newSelection.first);
+              },
             ),
-          ),
-          const SizedBox(height: 12),
-        ],
+          ],
+        ),
       );
     }
+
+    // Full mode for Settings screen
+    return RadioListTile<String>(
+      title: Text(widget.prayerDisplayName),
+      value: 'adhan',
+      groupValue: _selectedType,
+      onChanged: (value) => _updateNotificationType('adhan'),
+    );
   }
 }
