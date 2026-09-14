@@ -50,7 +50,7 @@ class _PrayerNotificationTypeSelectorState
           children: [
             Expanded(
               child: Text(
-                '${widget.prayerDisplayName} Notification:',
+                '\${widget.prayerDisplayName} Notification:',
                 style: const TextStyle(fontSize: 12),
               ),
             ),
